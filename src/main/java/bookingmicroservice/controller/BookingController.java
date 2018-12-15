@@ -14,7 +14,6 @@ import java.time.temporal.Temporal;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.httpclient.HttpClient;
 import org.apache.http.*;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;

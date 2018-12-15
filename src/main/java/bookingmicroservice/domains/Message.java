@@ -16,7 +16,7 @@ public class Message implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int messageid;
+	private long messageid;
 
 	private String text;
 
@@ -43,11 +43,11 @@ public class Message implements Serializable {
 		return this.text;
 	}
 
-	public int getMessageid() {
+	public long getMessageid() {
 		return this.messageid;
 	}
 
-	public void setMessageid(int messageid) {
+	public void setMessageid(long messageid) {
 		this.messageid = messageid;
 	}
 

@@ -12,7 +12,7 @@ import bookingmicroservice.domains.User;
 public interface UserDAO extends CrudRepository<User, Long>{
 	
 	@Query("Select u from User u where u.userid=:userid")
-	public User findByUserid(@Param("userid") int id); 
+	public User findByUserid(@Param("userid") long id); 
 	
 	public User findByEmail(String email); 
 	public User findByEmailAndPassword(String email, String password); 

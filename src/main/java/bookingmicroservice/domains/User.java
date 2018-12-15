@@ -20,16 +20,19 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int userid;
+	private long userid;
 
+	@JsonIgnore
 	private byte admin;
-
+	
+	@JsonIgnore
 	private String email;
-
+	
 	private String name;
-
+	
+	@JsonIgnore
 	private String password;
-
+	
 	private String surname;
 
 	//bi-directional many-to-one association to Booking
@@ -59,11 +62,11 @@ public class User implements Serializable {
 	public User() {
 	}
 
-	public int getUserid() {
+	public long getUserid() {
 		return this.userid;
 	}
 
-	public void setUserid(int userid) {
+	public void setUserid(long userid) {
 		this.userid = userid;
 	}
 

@@ -3,8 +3,11 @@ package bookingmicroservice.domains;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import java.util.Date;
 
@@ -13,6 +16,7 @@ import java.util.Date;
  * The persistent class for the BOOKING database table.
  * 
  */
+
 @Entity
 @Table(name="BOOKING")
 @NamedQuery(name="Booking.findAll", query="SELECT b FROM Booking b")
@@ -20,17 +24,14 @@ public class Booking implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int bookingid;
+	private long bookingid;
 
 	private String card_number;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	private Date date_booking;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	private Date date_end;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	private Date date_start;
 
 	//bi-directional many-to-one association to Home
@@ -56,11 +57,11 @@ public class Booking implements Serializable {
 	public Booking() {
 	}
 
-	public int getBookingid() {
+	public long getBookingid() {
 		return this.bookingid;
 	}
 
-	public void setBookingid(int bookingid) {
+	public void setBookingid(long bookingid) {
 		this.bookingid = bookingid;
 	}
 	

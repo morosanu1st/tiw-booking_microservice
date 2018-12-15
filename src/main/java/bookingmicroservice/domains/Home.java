@@ -20,12 +20,12 @@ public class Home implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int homeid;
+	private long homeid;
 
-	@Temporal(TemporalType.TIMESTAMP)
+	@JsonIgnore
 	private Date date_available_end;
 
-	@Temporal(TemporalType.TIMESTAMP)
+	@JsonIgnore
 	private Date date_available_start;
 
 	private String full_description;
@@ -34,18 +34,22 @@ public class Home implements Serializable {
 
 	private String name;
 
+	@JsonIgnore
 	private int number_of_guests;
 
+	@JsonIgnore
 	private int price;
 
+	@JsonIgnore
 	private String short_description;
 
+	@JsonIgnore
 	private int type;
 
 	//bi-directional many-to-one association to Booking
+	@JsonIgnore
 	@OneToMany(mappedBy="home")
 	private List<Booking> bookings1;
-
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
@@ -61,13 +65,13 @@ public class Home implements Serializable {
 
 
 
-	public int getHomeid() {
+	public long getHomeid() {
 		return homeid;
 	}
 
 
 
-	public void setHomeid(int homeid) {
+	public void setHomeid(long homeid) {
 		this.homeid = homeid;
 	}
 

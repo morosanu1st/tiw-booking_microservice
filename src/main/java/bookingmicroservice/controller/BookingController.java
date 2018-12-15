@@ -31,6 +31,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
@@ -58,13 +60,13 @@ public class BookingController {
 	@RequestMapping("/bookings")
 	public List<Booking> getBooking() {
 		List<Booking> bookings = bookingdao.findAll();
-		bookings.forEach(x -> x.clearBooking());
+		//bookings.forEach(x -> x.clearBooking());
 		return bookings;
 	}
 
 	@RequestMapping("/bookings/{id}")
-	public ResponseEntity<Booking> getBookingById(@PathVariable int id) {
-		Booking booking = bookingdao.findByBookingId(id);
+	public ResponseEntity<Booking> getBookingById(@PathVariable long id) {
+		Booking booking = bookingdao.findById(id).orElse(null);
 
 		ResponseEntity<Booking> response;
 		if (booking == null) {
@@ -124,28 +126,28 @@ public class BookingController {
 	}
 
 	@RequestMapping("/bookings/guest/{id}")
-	public ResponseEntity<List<Booking>> getBookingsForGuestUser(@PathVariable int id) {
+	public ResponseEntity<List<Booking>> getBookingsForGuestUser(@PathVariable long id) {
 		List<Booking> bookings = bookingdao.findByGuestUserid(id);
 		bookings.forEach(x -> x.clearBooking());
 		return new ResponseEntity<>(bookings, HttpStatus.OK);
 	}
 
 	@RequestMapping("/bookings/host/{id}")
-	public ResponseEntity<List<Booking>> getBookingsForHostUser(@PathVariable int id) {
+	public ResponseEntity<List<Booking>> getBookingsForHostUser(@PathVariable long id) {
 		List<Booking> bookings = bookingdao.findByHostUserid(id);
 		bookings.forEach(x -> x.clearBooking());
 		return new ResponseEntity<>(bookings, HttpStatus.OK);
 	}
 
 	@RequestMapping("/bookings/home/{id}")
-	public ResponseEntity<List<Booking>> getBookingsForHomeId(@PathVariable int id) {
+	public ResponseEntity<List<Booking>> getBookingsForHomeId(@PathVariable long id) {
 		List<Booking> bookings = bookingdao.findByHomeHomeid(id);
 		bookings.forEach(x -> x.clearBooking());
 		return new ResponseEntity<>(bookings, HttpStatus.OK);
 	}
 
 	@RequestMapping(method = RequestMethod.PUT, value = "/bookings/{id}/confirmation")
-	public ResponseEntity<String> setBookingConfirmed(@PathVariable int id) {
+	public ResponseEntity<String> setBookingConfirmed(@PathVariable long id) {
 		Booking b = bookingdao.findByBookingId(id);
 		JsonObject body = new JsonObject();
 		String[] card = b.getCard_number().split("/");
@@ -186,7 +188,7 @@ public class BookingController {
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT, value = "/bookings/{id}/cancelation")
-	public ResponseEntity<String> setBookingCanceled(@PathVariable int id) {
+	public ResponseEntity<String> setBookingCanceled(@PathVariable long id) {
 		Booking b = bookingdao.findByBookingId(id);
 		b.setConfirmed(1);
 		return new ResponseEntity<>("Canceled",HttpStatus.OK);
@@ -238,7 +240,7 @@ public class BookingController {
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE, value = "/bookings/{id}")
-	public ResponseEntity<String> deleteBooking(@PathVariable int id) {
+	public ResponseEntity<String> deleteBooking(@PathVariable long id) {
 		Booking b = bookingdao.findByBookingId(id);
 		bookingdao.delete(b);
 		return new ResponseEntity<>("deleted", HttpStatus.OK);

@@ -13,7 +13,7 @@ import bookingmicroservice.domains.User;
 public interface HomeDAO extends CrudRepository<User, Long>{
 	
 	@Query("Select u from Home u where u.homeid=:homeid")
-	public Home findByHomeid(@Param("homeid") int id); 
+	public Home findByHomeid(@Param("homeid") long id); 
 
 	public List<User> findAll();
 }

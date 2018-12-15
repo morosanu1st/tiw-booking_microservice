@@ -13,12 +13,12 @@ import bookingmicroservice.domains.User;
 public interface BookingDAO extends CrudRepository<Booking, Long>{
 	
 	@Query("Select b from Booking b where b.bookingid=:bookingid")
-	public Booking findByBookingId(@Param("bookingid") int id); 
+	public Booking findByBookingId(@Param("bookingid") long id); 
 
 	
-	public List<Booking> findByHomeHomeid(int homeid);
-	public List<Booking> findByHostUserid(int userid); 
-	public List<Booking> findByGuestUserid(int userid); 
+	public List<Booking> findByHomeHomeid(long homeid);
+	public List<Booking> findByHostUserid(long userid); 
+	public List<Booking> findByGuestUserid(long userid); 
 	
 	public List<Booking> findAll();
 }
